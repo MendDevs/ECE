@@ -1,6 +1,6 @@
 # Streamlit Cheat Sheet
 
-**Sources:** [Streamlit documentation](https://docs.streamlit.io/#),[Streamlit API cheat sheet](https://docs.streamlit.io/develop/quick-reference/cheat-sheet)
+**Sources:** [Streamlit documentation](https://docs.streamlit.io/#), [Streamlit API cheat sheet](https://docs.streamlit.io/develop/quick-reference/cheat-sheet)
 
 **Description:**  
 Streamlit is an open-source Python framework for creating dynamic data apps. It simplifies creating, displaying, and sharing apps for Data, AI, and ML engineers.
