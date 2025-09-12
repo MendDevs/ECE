@@ -45,11 +45,35 @@ int main(int argc, char **argv){
         printf("Group GID: \t\t%d\n", fileInfo.st_gid);
 
     //5. Size
+    printf("Size: \t\t\t%d\n", (long)fileInfo.st_size);
 
 
     //6. File Type
+    //using else if
+    printf("Type: \t\t\t");
+    if (S_ISREG(fileInfo.st_mode))printf("Regular file\n");
+    else if(S_ISDIR(fileInfo.st_mode)) printf("Directory\n");
+    else if(S_ISLNK(fileInfo.st_mode)) printf("Symbolic link\n");
+    else if(S_ISCHR(fileInfo.st_mode)) printf("Character device\n");
+    else if (S_ISBLK(fileInfo.st_mode)) printf("Block device\n");
+    else if (S_ISFIFO(fileInfo.st_mode)) printf("FIFO/pipe\n");
+    else if (S_ISSOCK(fileInfo.st_mode)) printf("Socket\n");
+    else printf("Unknown\n");
+
+    //Another method: inline ternary operator
+    /*
+    printf("Type: \t\t\t%s\n",
+    S_ISREG(fileInfo.st_mode)  ? "Regular file"   :
+    S_ISDIR(fileInfo.st_mode)  ? "Directory"      :
+    S_ISLNK(fileInfo.st_mode)  ? "Symbolic link"  :
+    S_ISCHR(fileInfo.st_mode)  ? "Character device":
+    S_ISBLK(fileInfo.st_mode)  ? "Block device"   :
+    S_ISFIFO(fileInfo.st_mode) ? "FIFO/pipe"      :
+    S_ISSOCK(fileInfo.st_mode) ? "Socket"         :
+                                 "Unknown");
+
+
+    */
 
     return 0;
-}
-
 }
