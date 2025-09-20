@@ -7,6 +7,8 @@ import pandas as pd
 
 st.header("Partie A : Chargement et exploration des données")
 
+
+/*
 # Charger le fichier
 try:
     df = pd.read_csv("tabBats.txt", sep="\t")
