@@ -4,6 +4,8 @@
 #include <sys/wait.h>
 
 int main(){
+
+    /*
     pid_t pid1 = fork();
 
 
@@ -26,9 +28,9 @@ int main(){
          exit(0);
         }
     }
-
+   */
     // version modified:
-    /*
+
         pid_t pid1 = fork();
     if (pid1 == 0) {
         for (int i = 1; i <= 50; i++) printf("%d ", i);
@@ -41,8 +43,9 @@ int main(){
             exit(0);
         }
         wait(NULL);
+        printf("\n");
     }
-    */
+
 
     return 0;
 }
