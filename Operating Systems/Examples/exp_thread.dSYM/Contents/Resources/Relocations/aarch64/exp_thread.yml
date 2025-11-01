@@ -1,0 +1,11 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/markie/Desktop/Computer Science/ECE/ECE/ECE/Operating Systems/Examples/exp_thread'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _afficher, symObjAddr: 0x0, symBinAddr: 0x100003C74, symSize: 0xC0 }
+  - { offsetInCU: 0x42, offset: 0x42, size: 0x8, addend: 0x0, symName: _afficher, symObjAddr: 0x0, symBinAddr: 0x100003C74, symSize: 0xC0 }
+  - { offsetInCU: 0x90, offset: 0x90, size: 0x8, addend: 0x0, symName: _threadA, symObjAddr: 0xC0, symBinAddr: 0x100003D34, symSize: 0x40 }
+  - { offsetInCU: 0xB8, offset: 0xB8, size: 0x8, addend: 0x0, symName: _threadC, symObjAddr: 0x100, symBinAddr: 0x100003D74, symSize: 0x40 }
+  - { offsetInCU: 0xE0, offset: 0xE0, size: 0x8, addend: 0x0, symName: _threadB, symObjAddr: 0x140, symBinAddr: 0x100003DB4, symSize: 0x74 }
+  - { offsetInCU: 0x116, offset: 0x116, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x1B4, symBinAddr: 0x100003E28, symSize: 0x98 }
+...
