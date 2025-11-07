@@ -1,5 +1,13 @@
 streamlit  
 matplotlib
+<<<<<<< HEAD
 panda
 numpy
 seaborn
+=======
+pandas
+numpy
+scikit-learn
+xgboost
+seaborn
+>>>>>>> origin/data-science
