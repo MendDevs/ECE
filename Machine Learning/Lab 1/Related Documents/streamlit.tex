@@ -1,0 +1,232 @@
+\documentclass[11pt,a4paper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{array}
+\usepackage{graphicx}
+
+% Page setup
+\geometry{margin=1in}
+
+% Code style
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{gray!10},
+  frame=single,
+  breaklines=true,
+  columns=fullflexible,
+  language=Python
+}
+
+% Table column width
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\title{Streamlit Cheat Sheet}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+% Image reference
+\begin{center}
+\includegraphics[width=0.5\textwidth]{streamlit.png}
+\end{center}
+
+\textbf{Sources:} \href{https://docs.streamlit.io/#}{Streamlit documentation}, \href{https://docs.streamlit.io/develop/quick-reference/cheat-sheet}{Streamlit API cheat sheet}
+
+\textbf{Description:} Streamlit is an open-source Python framework for creating dynamic data apps. It simplifies creating, displaying, and sharing apps for Data, AI, and ML engineers.
+
+\section*{Streamlit Syntax}
+\begin{longtable}{|L{4cm}|L{6cm}|L{6cm}|}
+\hline
+\textbf{Syntax} & \textbf{Description} & \textbf{Example} \\ \hline
+\verb|st.function(args)| & Display content or create a widget & 
+\verb|st.write("Hello")| \newline
+\verb|st.dataframe(df)| \newline
+\verb|st.image("image.png")| \newline
+\verb|st.slider("Pick a number",0,10)| \\ \hline
+
+With context manager: \verb|with st.<container>(...)| & Organize layout, group widgets, enable nested behavior & 
+\begin{lstlisting}
+with st.container():
+    st.write("Inside container")
+    st.line_chart(df)
+\end{lstlisting} \\ \hline
+
+Decorators: \verb|@st.<decorator>(...)| & Define fragments, dialogs, or cached computations &
+\begin{lstlisting}
+@st.fragment
+def my_function():
+    st.line_chart(df)
+    st.button("Update")
+\end{lstlisting} \\ \hline
+
+Object-oriented style & Update previously displayed elements dynamically &
+\begin{lstlisting}
+element = st.empty()
+element.text("Hello")
+bar = st.progress(50)
+bar.progress(100)
+\end{lstlisting} \\ \hline
+
+Caching & Cache results of computations or persistent resources &
+\begin{lstlisting}
+@st.cache_data
+def expensive_computation(...):
+    return result
+
+@st.cache_resource
+def create_session(...):
+    return session
+\end{lstlisting} \\ \hline
+\end{longtable}
+
+\section*{Essentials to Know}
+\begin{longtable}{|L{2cm}|L{8cm}|L{6cm}|}
+\hline
+\textbf{Category} & \textbf{Command} & \textbf{What it does} \\ \hline
+Install \& Import & \verb|pip install streamlit| & Install Streamlit \\ \hline
+ & \verb|streamlit run first_app.py| & Run a Streamlit app \\ \hline
+ & \verb|import streamlit as st| & Import Streamlit \\ \hline
+Pre-release features & \verb|pip uninstall streamlit| & Uninstall Streamlit \\ \hline
+ & \verb|pip install streamlit-nightly --upgrade| & Install nightly build (experimental) \\ \hline
+Command line & \verb|streamlit cache clear| & Clear cached data \\ \hline
+ & \verb|streamlit config show| & Show config options \\ \hline
+ & \verb|streamlit docs| & Open Streamlit docs \\ \hline
+ & \verb|streamlit hello| & Run demo app \\ \hline
+ & \verb|streamlit help| & Show help info \\ \hline
+ & \verb|streamlit init| & Initialize project \\ \hline
+ & \verb|streamlit run streamlit_app.py| & Run specified app \\ \hline
+ & \verb|streamlit version| & Show Streamlit version \\ \hline
+\end{longtable}
+
+\section*{Magic Commands}
+\begin{longtable}{|L{6cm}|L{10cm}|}
+\hline
+\textbf{Command} & \textbf{Description} \\ \hline
+\verb|"This is some **Markdown**"| & Implicitly calls \verb|st.write()| \\ \hline
+\verb|my_variable| & Display value with \verb|st.write()| \\ \hline
+\verb|"dataframe:", my_data_frame| & Display dataframe inline \\ \hline
+\end{longtable}
+
+\section*{Display Text}
+\begin{longtable}{|L{7cm}|L{8cm}|}
+\hline
+\textbf{Command} & \textbf{Description} \\ \hline
+\verb|st.write("Most objects")| & Display any object (df, list, func) \\ \hline
+\verb|st.text("Fixed width text")| & Fixed-width text \\ \hline
+\verb|st.markdown("_Markdown_")| & Markdown text \\ \hline
+\verb|st.latex(r""" e^{i\pi} + 1 = 0 """)| & Render LaTeX \\ \hline
+\verb|st.title("My title")| & Display title \\ \hline
+\verb|st.header("My header")| & Display header \\ \hline
+\verb|st.subheader("My sub")| & Display subheader \\ \hline
+\verb|st.code("for i in range(8): foo()")| & Display code block \\ \hline
+\verb|st.badge("New")| & Show badge \\ \hline
+\verb|st.html("<p>Hi!</p>")| & Render raw HTML \\ \hline
+\end{longtable}
+
+\section*{Display Data}
+\begin{longtable}{|L{6cm}|L{10cm}|}
+\hline
+\textbf{Command} & \textbf{Description} \\ \hline
+\verb|st.dataframe(my_dataframe)| & Interactive Dataframe \\ \hline
+\verb|st.table(data.iloc[0:10])| & Static Table \\ \hline
+\verb|st.json({"foo":"bar"})| & Show JSON \\ \hline
+\verb|st.metric("My metric",42,2)| & Display metric with delta \\ \hline
+\end{longtable}
+
+\section*{Display Media}
+\begin{longtable}{|L{8cm}|L{8cm}|}
+\hline
+\textbf{Command} & \textbf{Description} \\ \hline
+\verb|st.image("./streamlit.png")| & Show image \\ \hline
+\verb|st.logo("logo.jpg")| & Show logo \\ \hline
+\verb|st.audio(data)| & Play audio \\ \hline
+\verb|st.video(data)| & Play video \\ \hline
+\verb|st.video(data, subtitles="./subs.vtt")| & Play video with subtitles \\ \hline
+\end{longtable}
+
+\section*{Display Charts}
+\begin{longtable}{|L{6cm}|L{10cm}|}
+\hline
+\textbf{Command} & \textbf{Description} \\ \hline
+\verb|st.area_chart(df)| & Area chart \\ \hline
+\verb|st.bar_chart(df)| & Bar chart \\ \hline
+\verb|st.line_chart(df)| & Line chart \\ \hline
+\verb|st.map(df)| & Map visualization \\ \hline
+\verb|st.scatter_chart(df)| & Scatter chart \\ \hline
+\verb|st.altair_chart(chart)| & Altair chart \\ \hline
+\verb|st.plotly_chart(fig)| & Plotly chart \\ \hline
+\verb|st.pydeck_chart(chart)| & PyDeck chart \\ \hline
+\verb|st.pyplot(fig)| & Matplotlib chart \\ \hline
+\verb|st.graphviz_chart(fig)| & Graphviz chart \\ \hline
+\verb|st.vega_lite_chart(df,spec)| & Vega-Lite chart \\ \hline
+\end{longtable}
+
+\section*{Sidebar, Tabs \& Layout}
+\begin{longtable}{|L{6cm}|L{10cm}|}
+\hline
+\textbf{Feature} & \textbf{Example} \\ \hline
+Sidebar radio & \verb|st.sidebar.radio("Select one:", [1,2])| \\ \hline
+Sidebar with context & \verb|with st.sidebar: st.radio("Select one:", [1,2])| \\ \hline
+Columns & \verb|col1, col2 = st.columns(2)| \\ \hline
+Tabs & \verb|tab1, tab2 = st.tabs(["Tab 1","Tab 2"])| \\ \hline
+Expandable & \verb|expand = st.expander("My label")| \\ \hline
+Popover & \verb|pop = st.popover("Button label")| \\ \hline
+\end{longtable}
+
+\section*{Control Flow, Widgets, Chat Apps, Placeholders, Caching, Status, Personalization}
+\begin{longtable}{|L{8cm}|L{8cm}|}
+\hline
+\textbf{Command/Feature} & \textbf{Description} \\ \hline
+\verb|st.stop()| & Stop execution \\ \hline
+\verb|st.rerun()| & Rerun script \\ \hline
+\verb|st.switch_page("pages/my_page.py")| & Navigate to another page \\ \hline
+\verb|with st.form(key="my_form")| & Group widgets in a form \\ \hline
+\verb|@st.dialog("Welcome!")| & Define modal dialog \\ \hline
+\verb|@st.fragment| & Define fragment function \\ \hline
+\verb|st.button("Click me")| & Button \\ \hline
+\verb|st.checkbox("I agree")| & Checkbox \\ \hline
+\verb|st.radio("Pick one", ["cats","dogs"])| & Radio select \\ \hline
+\verb|st.selectbox("Pick one", ["cats","dogs"])| & Dropdown select \\ \hline
+\verb|st.multiselect("Buy", ["milk","apples"])| & Multi-select \\ \hline
+\verb|st.slider("Pick a number", 0, 100)| & Slider \\ \hline
+\verb|st.text_input("First name")| & Text input \\ \hline
+\verb|st.date_input("Your birthday")| & Date picker \\ \hline
+\verb|st.file_uploader("Upload a CSV")| & File upload \\ \hline
+\verb|st.color_picker("Pick a color")| & Color picker \\ \hline
+\verb|with st.chat_message("user")| & Insert chat message \\ \hline
+\verb|st.chat_input("Say something")| & Chat input widget \\ \hline
+\verb|element = st.empty()| & Placeholder element \\ \hline
+\verb|elements = st.container()| & Container for multiple elements \\ \hline
+\verb|flex = st.container(horizontal=True)| & Horizontal flex layout \\ \hline
+\verb|element.add_rows(df2)| & Add rows to chart/dataframe \\ \hline
+\verb|with st.echo():| & Display code while executing \\ \hline
+\verb|st.help(pandas.DataFrame)| & Show docs for object \\ \hline
+\verb|st.set_page_config(layout="wide")| & Configure page layout \\ \hline
+\verb|st.connection("pets_db", type="sql")| & Connect to DB \\ \hline
+\verb|conn.query(query)| & Execute query \\ \hline
+\verb|@st.cache_data| & Cache data objects \\ \hline
+\verb|@st.cache_resource| & Cache global resources \\ \hline
+\verb|with st.spinner("In progress")| & Show spinner \\ \hline
+\verb|bar = st.progress(50)| & Show/update progress bar \\ \hline
+\verb|st.balloons()| & Show balloons \\ \hline
+\verb|st.snow()| & Show snow \\ \hline
+\verb|st.toast("Warming up")| & Show toast \\ \hline
+\verb|st.error("Error")| & Error message \\ \hline
+\verb|st.warning("Warning")| & Warning message \\ \hline
+\verb|st.success("Success")| & Success message \\ \hline
+\verb|if not st.user.is_logged_in| & Check login \\ \hline
+\verb|st.login("provider")| & Log in user \\ \hline
+\verb|st.logout()| & Log out \\ \hline
+\verb|st.context.cookies| & Access cookies \\ \hline
+\verb|st.image("./streamlit.png")| & Reference image again \\ \hline
+\end{longtable}
+
+\end{document}

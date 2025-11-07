@@ -1,0 +1,2 @@
+Some libraries we'll use: 
+    - Numpy, Pandas & Matplotlib
